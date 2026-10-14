@@ -318,7 +318,7 @@ loginForm.addEventListener('submit',async e=>{e.preventDefault();const err=docum
 // Startup moved below all declarations so NAV and page renderers are initialized first;
 
 const DAYS=['จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์','เสาร์'];
-const NAV=[['home','หน้าหลัก','⌂'],['guide','คู่มือเริ่มต้นแต่ละเทอม','☷'],['years','ปีการศึกษา','▣'],['teachers','แก้ไขครูผู้สอน','♙'],['subjects','ข้อมูลรายวิชา','▤'],['classes','ระดับชั้น/ห้องเรียน','▦'],['periods','ตั้งค่าคาบเรียน','◷'],['timetable','จัดตารางสอน','▦'],['exports','ส่งออกตารางเรียน/ตารางสอน','⇩'],['autoSchedule','จัดตารางอัตโนมัติ','⚙'],['substitutions','จัดการสอนแทน','⇄'],['reports','รายงาน/ตรวจสอบ','▥'],['backup','สำรองและนำเข้าข้อมูล','⇧']];
+const NAV=[['home','หน้าหลัก','⌂'],['guide','คู่มือเริ่มต้นแต่ละเทอม','☷'],['years','ปีการศึกษา','▣'],['teachers','กำหนดครูผู้สอน','♙'],['subjects','ข้อมูลรายวิชา','▤'],['classes','ระดับชั้น/ห้องเรียน','▦'],['periods','ตั้งค่าคาบเรียน','◷'],['timetable','จัดตารางสอน','▦'],['exports','ส่งออกตารางเรียน/ตารางสอน','⇩'],['autoSchedule','จัดตารางอัตโนมัติ','⚙'],['substitutions','จัดการสอนแทน','⇄'],['reports','รายงาน/ตรวจสอบ','▥'],['backup','สำรองและนำเข้าข้อมูล','⇧']];
 const STORE='borommatat_timetable_v3';
 function uid(){return Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4)}
 function blankYear(name='2569'){return {id:uid(),name,term:'2',school:'โรงเรียนชุมชนวัดบรมธาตุ',days:['จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์'],periods:[{name:'คาบ 1',start:'08:30',end:'09:30'},{name:'คาบ 2',start:'09:30',end:'10:30'},{name:'คาบ 3',start:'10:30',end:'11:30'},{name:'คาบ 4',start:'12:30',end:'13:30'},{name:'คาบ 5',start:'13:30',end:'14:30'},{name:'คาบ 6',start:'14:30',end:'15:30'}],teachers:[],subjects:[],classes:['ป.1','ป.2','ป.3','ป.4','ป.5','ป.6'].map(n=>({id:uid(),name:n,level:n,room:'',active:true})),lessons:[],requirements:[],substitutions:[],created:new Date().toISOString()}}
@@ -387,7 +387,7 @@ document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>itemForm(kind,
 document.getElementById('search').oninput=draw;draw();document.getElementById('addItem').onclick=()=>itemForm(kind)}
 function teachersPage(v){
  let y=Y();
- v.innerHTML=head('แก้ไขครูผู้สอน','เพิ่มรายชื่อครูทั้งโรงเรียนครั้งเดียว แล้วนำไปเลือกใช้ในตารางสอนได้',`<button id="manageTeacherRoster" class="secondary">จัดการรายชื่อครูทั้งโรงเรียน</button><button id="addTeacher">＋ เพิ่มครูและรายวิชา</button>`)+`<div class="panel"><div class="notice"><b>เริ่มต้น:</b> กด “จัดการรายชื่อครูทั้งโรงเรียน” เพื่อเพิ่มรายชื่อครูทุกคนก่อน จากนั้นรายชื่อจะนำไปใช้เป็นตัวเลือกในแบบฟอร์มและตารางสอนได้ ไม่ต้องพิมพ์ชื่อซ้ำ</div><div class="toolbar"><input id="teacherSearch" placeholder="ค้นหาชื่อครู วิชา หรือระดับชั้น..."><span class="muted">ครูทั้งหมด ${y.teachers.length} คน</span></div><div class="tablewrap"><table><thead><tr><th>ชื่อครู</th><th>วิชาที่สอน</th><th>ระดับชั้นที่สอน</th><th>จำนวนชั่วโมงสอน/สัปดาห์</th><th>ชั่วโมงสูงสุด</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody id="teacherRows"></tbody></table></div></div>`;
+ v.innerHTML=head('กำหนดครูผู้สอน','เพิ่มรายชื่อครูทั้งโรงเรียนครั้งเดียว แล้วนำไปเลือกใช้ในตารางสอนได้',`<button id="manageTeacherRoster" class="secondary">จัดการรายชื่อครูทั้งโรงเรียน</button><button id="addTeacher">＋ เพิ่มครูและรายวิชา</button>`)+`<div class="panel"><div class="notice"><b>เริ่มต้น:</b> กด “จัดการรายชื่อครูทั้งโรงเรียน” เพื่อเพิ่มรายชื่อครูทุกคนก่อน จากนั้นรายชื่อจะนำไปใช้เป็นตัวเลือกในแบบฟอร์มและตารางสอนได้ ไม่ต้องพิมพ์ชื่อซ้ำ</div><div class="toolbar"><input id="teacherSearch" placeholder="ค้นหาชื่อครู วิชา หรือระดับชั้น..."><span class="muted">ครูทั้งหมด ${y.teachers.length} คน</span></div><div class="tablewrap"><table><thead><tr><th>ชื่อครู</th><th>วิชาที่สอน</th><th>ระดับชั้นที่สอน</th><th>จำนวนชั่วโมงสอน/สัปดาห์</th><th>ชั่วโมงสูงสุด</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody id="teacherRows"></tbody></table></div></div>`;
  const subjectNames=t=>Array.isArray(t.assignments)&&t.assignments.length?[...new Set(t.assignments.map(a=>a.subject).filter(Boolean))].join('、'):(Array.isArray(t.subjectIds)&&t.subjectIds.length?t.subjectIds.map(id=>y.subjects.find(s=>s.id===id)?.name).filter(Boolean).join('、'):(t.subjects||'-'));
  const classNames=t=>Array.isArray(t.assignments)&&t.assignments.length?[...new Set(t.assignments.flatMap(a=>(a.level||'').split(/[,、]/).map(z=>z.trim()).filter(Boolean)))].join('、'):(Array.isArray(t.classIds)&&t.classIds.length?t.classIds.map(id=>y.classes.find(c=>c.id===id)?.name).filter(Boolean).join('、'):(t.levels||'-'));
  const draw=()=>{let q=document.getElementById('teacherSearch').value.trim().toLowerCase();let items=y.teachers.filter(t=>[t.name,subjectNames(t),classNames(t)].join(' ').toLowerCase().includes(q));document.getElementById('teacherRows').innerHTML=items.length?items.map(t=>`<tr><td><b>${esc(t.name)}</b></td><td>${esc(subjectNames(t))}</td><td>${esc(classNames(t))}</td><td>${t.teachingHours===undefined||t.teachingHours===''?'-':esc(t.teachingHours)}</td><td>${esc(t.maxHours??24)}</td><td><span class="pill ${t.active!==false?'ok':'warn'}">${t.active!==false?'ใช้งาน':'ปิดใช้งาน'}</span></td><td class="actions"><button class="small secondary" data-teacher-edit="${t.id}">แก้ไข</button><button class="small danger" data-teacher-delete="${t.id}">ลบ</button></td></tr>`).join(''):`<tr><td colspan="7" class="empty">ไม่พบข้อมูลครู</td></tr>`;
@@ -499,10 +499,49 @@ function draw(){
 document.querySelectorAll('[data-edit-lesson]').forEach(b=>b.onclick=()=>lessonForm(b.dataset.editLesson));document.querySelectorAll('[data-add-slot]').forEach(b=>b.onclick=()=>{let [d,i]=b.dataset.addSlot.split('|');lessonForm(null,{day:d,period:Number(i),classId:mode==='class'&&f?f:y.classes[0]?.id})});document.querySelectorAll('[data-del-lesson]').forEach(b=>b.onclick=()=>{if(confirm('ลบคาบสอนนี้?')){y.lessons=y.lessons.filter(l=>l.id!==b.dataset.delLesson);save();draw();toast('ลบคาบสอนแล้ว')}})}
 type.onchange=opts;filter.onchange=draw;document.getElementById('viewDay').onchange=draw;document.getElementById('showAll').onclick=()=>{filter.value='';document.getElementById('viewDay').value='';draw()};document.getElementById('addLesson').onclick=()=>lessonForm();document.getElementById('clearLessons').onclick=()=>{if(!y.lessons.length){toast('ยังไม่มีคาบสอนให้ล้าง');return}if(confirm('ยืนยันล้างตารางสอนทั้งหมดของปีการศึกษา/ภาคเรียนที่กำลังเลือกหรือไม่？ รายชื่อครู วิชา และห้องเรียนจะไม่ถูกลบ')){y.lessons=[];save();draw();toast('ล้างตารางสอนทั้งหมดแล้ว')}};opts()}
 function lessonForm(id=null,preset={}){let y=Y(),l=y.lessons.find(x=>x.id===id)||{day:preset.day||y.days[0],period:preset.period??0,classId:preset.classId||y.classes[0]?.id||'',subject:y.subjects[0]?.name||'ครูประจำชั้น',teacherId:y.teachers[0]?.id||'',teacherIds:[],note:''};let selected=lessonTeacherIds(l);if(!selected.length&&l.teacherId)selected=[l.teacherId];showModal(id?'แก้ไขคาบสอน':'เพิ่มคาบสอน',`<form id="lessonForm"><div class="formgrid"><div class="field"><label>วันเรียน</label><select name="day">${y.days.map(d=>`<option ${d===l.day?'selected':''}>${d}</option>`).join('')}</select></div><div class="field"><label>คาบเรียน</label><select name="period">${y.periods.slice(0,6).map((p,i)=>`<option value="${i}" ${i===Number(l.period)?'selected':''}>${esc(p.name||'คาบ '+(i+1))} (${esc(p.start)}–${esc(p.end)})</option>`).join('')}</select></div><div class="field"><label>ชั้น/ห้องเรียน *</label><select name="classId" required>${y.classes.filter(c=>c.active!==false).map(c=>`<option value="${c.id}" ${c.id===l.classId?'selected':''}>${esc(c.name)}</option>`).join('')}</select></div><div class="field"><label>รายวิชา/กิจกรรม *</label><select name="subject" required><option value="ครูประจำชั้น" ${l.subject==='ครูประจำชั้น'?'selected':''}>ครูประจำชั้น</option>${y.subjects.filter(s=>s.active!==false).map(s=>`<option ${s.name===l.subject?'selected':''}>${esc(s.name)}</option>`).join('')}</select></div><div class="field" style="grid-column:1/-1"><label>ครูผู้สอน (เลือกได้ 1 หรือ 2 คน)</label><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;border:1px solid #cfd8e3;border-radius:10px;padding:10px;max-height:190px;overflow:auto">${y.teachers.filter(t=>t.active!==false).map(t=>`<label style="display:flex;align-items:center;gap:8px;font-weight:400"><input type="checkbox" name="teacherIds" value="${t.id}" ${selected.includes(t.id)?'checked':''} style="width:auto">${esc(t.name)}</label>`).join('')}</div><small class="muted">เลือกได้มากกว่า 1 คน เช่น ครูประจำชั้นร่วมกัน 2 คน</small></div><div class="field"><label>หมายเหตุ</label><input name="note" value="${esc(l.note||'')}"></div></div><div id="lessonCheck"></div><div class="formactions"><button type="submit">ตรวจสอบและบันทึก</button><button type="button" class="secondary" id="lessonCancel">ยกเลิก</button></div></form>`);
-let form=document.getElementById('lessonForm');document.getElementById('lessonCancel').onclick=closeModal;const check=()=>{let f=new FormData(form),teacherIds=[...form.querySelectorAll('input[name="teacherIds"]:checked')].map(x=>x.value),cand={...l,day:f.get('day'),period:Number(f.get('period')),classId:f.get('classId'),teacherIds};let clashes=y.lessons.filter(z=>z.id!==id&&z.day===cand.day&&Number(z.period)===cand.period&&((z.classId===cand.classId)||lessonTeacherIds(z).some(t=>teacherIds.includes(t))));let duplicateSubjects=y.lessons.filter(z=>z.id!==id&&z.day===cand.day&&z.classId===cand.classId&&String(z.subject||'').trim()===String(f.get('subject')||'').trim());let msgs=[];if(!teacherIds.length)msgs.push('กรุณาเลือกครูอย่างน้อย 1 คน');if(teacherIds.length>2)msgs.push('เลือกครูได้ไม่เกิน 2 คนต่อคาบ');if(clashes.length)msgs.push(...clashes.map(z=>`${z.classId===cand.classId?'ชั้นเรียนมีคาบอยู่แล้ว':'ครูผู้สอนมีสอนชนกัน'}: ${z.subject} (${lessonTeacherNames(y,z)})`));let warning=duplicateSubjects.length?`<div class="notice" style="background:#fff7e6;border-color:#e5b454;color:#7a4b00;margin-top:12px"><b>⚠️ เตือน: วิชานี้มีในตารางของห้องนี้แล้วในวันเดียวกัน</b><br>${duplicateSubjects.map(z=>`คาบ ${Number(z.period)+1} (${esc(y.periods[z.period]?.start||'')}–${esc(y.periods[z.period]?.end||'')})`).join('<br>')}<br>ตรวจสอบว่าเป็นการลงวิชาซ้ำโดยไม่ตั้งใจหรือไม่ ก่อนบันทึกระบบจะถามยืนยันอีกครั้ง</div>`:'';document.getElementById('lessonCheck').innerHTML=(msgs.length?`<div class="notice" style="background:#fff0ef;border-color:#f1b5b1;color:#9b1c1c;margin-top:12px">${msgs.map(esc).join('<br>')}</div>`:`<div class="pill ok" style="margin-top:12px">ไม่พบครูหรือชั้นเรียนชนในคาบนี้</div>`)+warning;return !msgs.length};form.onchange=check;form.onsubmit=e=>{e.preventDefault();if(!check()){toast('กรุณาแก้ข้อขัดแย้งก่อนบันทึก');return}let f=new FormData(form),duplicate=y.lessons.filter(z=>z.id!==id&&z.day===f.get('day')&&z.classId===f.get('classId')&&String(z.subject||'').trim()===String(f.get('subject')||'').trim());if(duplicate.length&&!confirm(`⚠️ พบวิชา “${f.get('subject')}” ซ้ำในห้องเดียวกันวัน${f.get('day')} แล้ว (${duplicate.map(z=>'คาบ '+(Number(z.period)+1)).join(', ')})
-
-ต้องการบันทึกวิชานี้ซ้ำจริงหรือไม่?
-กด Cancel เพื่อกลับไปตรวจตาราง`))return;let teacherIds=[...form.querySelectorAll('input[name="teacherIds"]:checked')].map(x=>x.value),obj={id:id||uid(),day:f.get('day'),period:Number(f.get('period')),classId:f.get('classId'),subject:f.get('subject'),teacherId:teacherIds[0],teacherIds,note:f.get('note')};if(id)Object.assign(l,obj);else y.lessons.push(obj);save();
+let form=document.getElementById('lessonForm');document.getElementById('lessonCancel').onclick=closeModal;
+const check=()=>{
+ let f=new FormData(form),teacherIds=[...form.querySelectorAll('input[name="teacherIds"]:checked')].map(x=>x.value),subject=String(f.get('subject')||'').trim(),cand={...l,day:f.get('day'),period:Number(f.get('period')),classId:f.get('classId'),teacherIds,subject};
+ let clashes=y.lessons.filter(z=>z.id!==id&&z.day===cand.day&&Number(z.period)===cand.period&&((z.classId===cand.classId)||lessonTeacherIds(z).some(t=>teacherIds.includes(t))));
+ let duplicateSubjects=y.lessons.filter(z=>z.id!==id&&z.day===cand.day&&z.classId===cand.classId&&String(z.subject||'').trim()===subject);
+ let msgs=[],warnings=[];
+ const activeTeachers=y.teachers.filter(t=>t.active!==false),activeSubjects=y.subjects.filter(s=>s.active!==false);
+ const knownTeacherIds=new Set(activeTeachers.map(t=>t.id));
+ if(!teacherIds.length)msgs.push('กรุณาเลือกครูอย่างน้อย 1 คนจากเมนู “กำหนดครูผู้สอน”');
+ if(teacherIds.length>2)msgs.push('เลือกครูได้ไม่เกิน 2 คนต่อคาบ');
+ const unknownTeachers=teacherIds.filter(t=>!knownTeacherIds.has(t));
+ if(unknownTeachers.length)msgs.push('พบรหัสครูที่ไม่มีหรือไม่ได้เปิดใช้งานในเมนู “กำหนดครูผู้สอน” กรุณากลับไปตรวจสอบรายชื่อครู');
+ const knownSubject=subject==='ครูประจำชั้น'||activeSubjects.some(s=>String(s.name).trim()===subject);
+ if(!subject)msgs.push('กรุณาเลือกรายวิชา');
+ else if(!knownSubject)msgs.push(`ไม่พบรายวิชา “${subject}” ในเมนูข้อมูลรายวิชา กรุณาเพิ่มหรือเปิดใช้งานรายวิชาก่อน`);
+ if(clashes.length)msgs.push(...clashes.map(z=>`${z.classId===cand.classId?'ชั้นเรียนมีคาบอยู่แล้ว':'ครูผู้สอนมีสอนชนกัน'}: ${z.subject} (${lessonTeacherNames(y,z)})`));
+ const oldCount=(pred)=>y.lessons.filter(z=>z.id!==id&&pred(z)).length;
+ const currentClass=y.classes.find(c=>c.id===cand.classId);
+ const classLabels=[currentClass?.name,currentClass?.level].filter(Boolean).map(v=>String(v).trim().toLowerCase());
+ // ตรวจชั่วโมงตามชุดข้อมูลครู + วิชา + ระดับชั้นที่กำหนดไว้ในเมนูครูผู้สอน
+ for(const tid of teacherIds){
+  const t=activeTeachers.find(x=>x.id===tid);if(!t)continue;
+  const assignments=Array.isArray(t.assignments)?t.assignments:[];
+  if(assignments.length){
+   const matching=assignments.filter(a=>String(a.subject||'').trim().toLowerCase()===subject.toLowerCase() && String(a.level||'').split(/[,،、]/).map(v=>v.trim().toLowerCase()).some(v=>classLabels.includes(v)));
+   if(!matching.length){msgs.push(`ยังไม่ได้กำหนดให้ ${t.name} สอนวิชา ${subject} ระดับชั้น ${currentClass?.name||'ที่เลือก'} ในเมนู “กำหนดครูผู้สอน” กรุณากำหนดข้อมูลก่อนเพิ่มคาบ`);continue;}
+   const limit=matching.reduce((n,a)=>n+(Number(a.hours)||0),0);
+   if(limit>0){const count=oldCount(z=>lessonTeacherIds(z).includes(tid)&&String(z.subject||'').trim().toLowerCase()===subject.toLowerCase()&&(()=>{const c=y.classes.find(k=>k.id===z.classId);return !!c&&[c.name,c.level].filter(Boolean).some(v=>classLabels.includes(String(v).trim().toLowerCase()))})())+1;
+    if(count>limit)msgs.push(`เกินชั่วโมงที่กำหนด: ${t.name} สอน ${subject} ระดับชั้น ${currentClass?.name||''} ได้ ${limit} คาบ/สัปดาห์ แต่กำลังเพิ่มเป็นคาบที่ ${count} กรุณายกเลิกคาบนี้หรือแก้ไขชั่วโมงในเมนู “กำหนดครูผู้สอน”`);
+   }
+  }else{const count=oldCount(z=>lessonTeacherIds(z).includes(tid))+1;const max=Number(t.maxHours||0);if(max>0&&count>max)warnings.push(`ครู ${t.name} จะมี ${count} คาบ/สัปดาห์ เกินชั่วโมงสูงสุดที่กำหนด (${max}) ในเมนูกำหนดครูผู้สอน`)}
+ }
+ const subj=activeSubjects.find(x=>String(x.name).trim()===subject);if(subj&&Number(subj.defaultHours||0)>0){const count=oldCount(z=>String(z.subject||'').trim()===subject)+1;const target=Number(subj.defaultHours||0);if(count>target)warnings.push(`วิชา ${subject} จะมี ${count} คาบในตาราง เกินชั่วโมงเป้าหมายที่กำหนด (${target}) ในเมนูข้อมูลรายวิชา`)}
+ let warning=duplicateSubjects.length?`<div class="notice" style="background:#fff7e6;border-color:#e5b454;color:#7a4b00;margin-top:12px"><b>⚠️ เตือน: วิชานี้มีในตารางของห้องนี้แล้วในวันเดียวกัน</b><br>${duplicateSubjects.map(z=>`คาบ ${Number(z.period)+1} (${esc(y.periods[z.period]?.start||'')}–${esc(y.periods[z.period]?.end||'')})`).join('<br>')}<br>ตรวจสอบว่าเป็นการลงวิชาซ้ำโดยไม่ตั้งใจหรือไม่</div>`:'';
+ let warningHours=warnings.length?`<div class="notice" style="background:#fff7e6;border-color:#e5b454;color:#7a4b00;margin-top:12px"><b>⚠️ เตือนชั่วโมงเกินกำหนด</b><br>${warnings.map(esc).join('<br>')}<br>ระบบจะขอให้ยืนยันก่อนบันทึก</div>`:'';
+ document.getElementById('lessonCheck').innerHTML=(msgs.length?`<div class="notice" style="background:#fff0ef;border-color:#f1b5b1;color:#9b1c1c;margin-top:12px"><b>กรุณาแก้ไขข้อมูลก่อนบันทึก</b><br>${msgs.map(esc).join('<br>')}</div>`:`<div class="pill ok" style="margin-top:12px">ตรวจสอบรายชื่อครูและรายวิชาแล้ว ไม่พบรายการที่ไม่มีในข้อมูลกำหนด</div>`)+warning+warningHours;
+ return {ok:!msgs.length,warnings,duplicateSubjects};
+};
+form.onchange=check;
+form.onsubmit=e=>{e.preventDefault();const result=check();if(!result.ok){toast('กรุณาแก้ไขรายชื่อครูหรือรายวิชาให้ตรงกับข้อมูลที่กำหนดก่อนบันทึก');return}let f=new FormData(form),duplicate=y.lessons.filter(z=>z.id!==id&&z.day===f.get('day')&&z.classId===f.get('classId')&&String(z.subject||'').trim()===String(f.get('subject')||'').trim());
+ if(result.warnings.length&&!confirm('⚠️ พบชั่วโมงสอนเกินกำหนด\n\n'+result.warnings.join('\n')+'\n\nต้องการบันทึกต่อหรือไม่? กด Cancel เพื่อกลับไปแก้ไข'))return;
+ if(duplicate.length&&!confirm(`⚠️ พบวิชา “${f.get('subject')}” ซ้ำในห้องเดียวกันวัน${f.get('day')} แล้ว (${duplicate.map(z=>'คาบ '+(Number(z.period)+1)).join(', ')})\n\nต้องการบันทึกวิชานี้ซ้ำจริงหรือไม่?\nกด Cancel เพื่อกลับไปตรวจตาราง`))return;
+ let teacherIds=[...form.querySelectorAll('input[name="teacherIds"]:checked')].map(x=>x.value),obj={id:id||uid(),day:f.get('day'),period:Number(f.get('period')),classId:f.get('classId'),subject:f.get('subject'),teacherId:teacherIds[0],teacherIds,note:f.get('note')};if(id)Object.assign(l,obj);else y.lessons.push(obj);save();
 // Preserve the timetable view and selected class/day after adding or editing a lesson.
 const keepView={type:document.getElementById('viewType')?.value||'class',filter:document.getElementById('viewFilter')?.value||'',day:document.getElementById('viewDay')?.value||''};
 closeModal();render();
@@ -515,12 +554,12 @@ toast('บันทึกคาบสอนแล้ว')};check()}
 function autoSchedulePage(v){
  let y=Y();
  v.innerHTML=head('จัดตารางอัตโนมัติ','กำหนดว่าห้องใดเรียนวิชาอะไร กับครูคนไหน สัปดาห์ละกี่คาบ แล้วให้ระบบค้นหาตารางที่ไม่ชนกัน',`<button id="syncTeacherData" class="secondary">↻ ดึงข้อมูลจากครูผู้สอน</button><button id="addReq">＋ เพิ่มเงื่อนไขวิชา</button>`)
- +`<div class="notice"><b>เงื่อนไขสำคัญ:</b> ระบบจัดวิชาทั่วไปอัตโนมัติเฉพาะคาบที่ 1–5 เท่านั้น คาบที่ 6 จะไม่ถูกเติมหรือเปลี่ยนโดยการจัดอัตโนมัติ และจะไม่จัดคาบใดที่ทับช่วงพักกลางวัน 11:30–12:30 น.<br><b>ข้อมูลเดิมจะไม่ถูกลบ:</b> การกดดึงข้อมูลจะเปลี่ยนเฉพาะรายการเงื่อนไขจัดตาราง ไม่แก้ไขรายชื่อครูหรือข้อมูลที่กรอกในเมนูแก้ไขครูผู้สอน<br><b>แหล่งข้อมูลหลัก:</b> ใช้ข้อมูลจากเมนู “แก้ไขครูผู้สอน” โดยตรง กด “ดึงข้อมูลจากครูผู้สอน” เพื่อสร้างเงื่อนไขตามวิชา ระดับชั้น และชั่วโมงที่กรอกไว้ แล้วตรวจสอบรายการด้านล่างก่อนจัดตาราง ระบบนี้จะจัดตามชั่วโมงที่กำหนดในรายการด้านล่าง โดยไม่ให้ครูหรือห้องเรียนซ้ำในวัน/คาบเดียวกัน หากเงื่อนไขขัดแย้งกัน ระบบจะแจ้งและไม่บันทึกตารางที่จัดไม่สำเร็จ</div>
+ +`<div class="notice"><b>เงื่อนไขสำคัญ:</b> ระบบจัดวิชาทั่วไปอัตโนมัติเฉพาะคาบที่ 1–5 เท่านั้น คาบที่ 6 จะไม่ถูกเติมหรือเปลี่ยนโดยการจัดอัตโนมัติ และจะไม่จัดคาบใดที่ทับช่วงพักกลางวัน 11:30–12:30 น.<br><b>ข้อมูลเดิมจะไม่ถูกลบ:</b> การกดดึงข้อมูลจะเปลี่ยนเฉพาะรายการเงื่อนไขจัดตาราง ไม่แก้ไขรายชื่อครูหรือข้อมูลที่กรอกในเมนูกำหนดครูผู้สอน<br><b>แหล่งข้อมูลหลัก:</b> ใช้ข้อมูลจากเมนู “กำหนดครูผู้สอน” โดยตรง กด “ดึงข้อมูลจากครูผู้สอน” เพื่อสร้างเงื่อนไขตามวิชา ระดับชั้น และชั่วโมงที่กรอกไว้ แล้วตรวจสอบรายการด้านล่างก่อนจัดตาราง ระบบนี้จะจัดตามชั่วโมงที่กำหนดในรายการด้านล่าง โดยไม่ให้ครูหรือห้องเรียนซ้ำในวัน/คาบเดียวกัน หากเงื่อนไขขัดแย้งกัน ระบบจะแจ้งและไม่บันทึกตารางที่จัดไม่สำเร็จ</div>
  <div class="cards">${stat('เงื่อนไขรายวิชา',y.requirements.length,'รายการที่ต้องจัด')}${stat('คาบที่ต้องจัด',y.requirements.reduce((a,r)=>a+Number(r.hours||0),0),'คาบต่อสัปดาห์')}${stat('ช่องเรียนวิชาทั่วไป',y.days.length*y.periods.filter((p,i)=>i<5).length,'จัดอัตโนมัติเฉพาะคาบ 1–5')}${stat('ตารางปัจจุบัน',y.lessons.length,'คาบที่บันทึกอยู่')}</div>
  <section class="panel"><h3>1. เงื่อนไขการจัดตาราง</h3><p class="muted">หนึ่งแถวหมายถึง วิชาหนึ่งวิชาของห้องหนึ่งห้อง สอนโดยครูที่เลือกตามจำนวนคาบต่อสัปดาห์</p>
  <div class="tablewrap"><table><thead><tr><th>ระดับชั้น/ห้อง</th><th>รายวิชา</th><th>ครูผู้สอน</th><th>คาบ/สัปดาห์</th><th>จัดการ</th></tr></thead><tbody id="reqRows"></tbody></table></div>
  <div class="formactions"><button class="secondary" id="importCurrent">สร้างเงื่อนไขจากตารางที่มีอยู่</button><button class="secondary" id="clearReq">ล้างเงื่อนไขทั้งหมด</button></div></section>
- <section class="panel"><h3>2. ตั้งค่าการจัดตาราง</h3><div class="formgrid"><div class="field"><label>เป้าหมายการจัดตาราง</label><select id="scheduleMode"><option value="replace">จัดใหม่ทั้งตาราง (แทนที่ตารางปัจจุบัน)</option><option value="empty">จัดเฉพาะช่องว่าง (คงตารางเดิมไว้)</option></select></div><div class="field"><label>หลีกเลี่ยงวิชาเดิมซ้ำในวันเดียวกัน</label><select id="avoidRepeat"><option value="yes">พยายามหลีกเลี่ยง</option><option value="no">ไม่บังคับ</option></select></div></div>
+ <section class="panel"><h3>2. ตั้งค่าการจัดตาราง</h3><div class="formgrid"><div class="field"><label>เป้าหมายการจัดตาราง</label><select id="scheduleMode"><option value="empty" selected>จัดเฉพาะช่องว่าง (ล็อกคาบเดิมไว้)</option><option value="replace">จัดใหม่ทั้งตาราง (แทนที่ตารางปัจจุบัน)</option></select></div><div class="field"><label>หลีกเลี่ยงวิชาเดิมซ้ำในวันเดียวกัน</label><select id="avoidRepeat"><option value="yes">พยายามหลีกเลี่ยง</option><option value="no">ไม่บังคับ</option></select></div></div>
  <div class="formactions"><button id="runAuto" class="gold">⚙ จัดตารางอัตโนมัติ</button><button id="checkReq" class="secondary">ตรวจเงื่อนไขก่อนจัด</button></div><div id="autoResult"></div></section>
  <section class="panel"><h3>3. ผลการจัดตาราง</h3><p class="muted">ระบบจะแสดงผลและข้อขัดแย้งก่อนบันทึกจริง</p><div id="autoSummary"><div class="empty">ยังไม่ได้เริ่มจัดตาราง</div></div></section>`;
  const tbody=document.getElementById('reqRows');
@@ -549,13 +588,13 @@ function autoSchedulePage(v){
  }
  document.getElementById('syncTeacherData').onclick=()=>{
    const {generated,warnings}=buildRequirementsFromTeachers();
-   if(!generated.length){showIssues(['ยังไม่มีข้อมูลวิชา ระดับชั้น และชั่วโมงที่ครบถ้วนในเมนู “แก้ไขครูผู้สอน” กรุณาเข้าไปกรอกข้อมูลก่อน']);return}
-   const msg=`พบเงื่อนไข ${generated.length} รายการ จากข้อมูลครูผู้สอน\n\nการดำเนินการนี้จะแทนที่ “เงื่อนไขการจัดตาราง” เดิมเท่านั้น ไม่ลบหรือแก้ไขรายชื่อครู วิชา ระดับชั้น หรือชั่วโมงในหน้าแก้ไขครูผู้สอน\n\n${warnings.length?`มี ${warnings.length} แถวที่ข้อมูลไม่ครบและจะข้าม:\n${warnings.slice(0,8).join('\n')}\n\n`:''}ต้องการดำเนินการต่อหรือไม่?`;
+   if(!generated.length){showIssues(['ยังไม่มีข้อมูลวิชา ระดับชั้น และชั่วโมงที่ครบถ้วนในเมนู “กำหนดครูผู้สอน” กรุณาเข้าไปกรอกข้อมูลก่อน']);return}
+   const msg=`พบเงื่อนไข ${generated.length} รายการ จากข้อมูลครูผู้สอน\n\nการดำเนินการนี้จะแทนที่ “เงื่อนไขการจัดตาราง” เดิมเท่านั้น ไม่ลบหรือแก้ไขรายชื่อครู วิชา ระดับชั้น หรือชั่วโมงในหน้ากำหนดครูผู้สอน\n\n${warnings.length?`มี ${warnings.length} แถวที่ข้อมูลไม่ครบและจะข้าม:\n${warnings.slice(0,8).join('\n')}\n\n`:''}ต้องการดำเนินการต่อหรือไม่?`;
    if(!confirm(msg))return;
    y.requirements=generated;
    save();drawReq();updateStats();
    document.getElementById('autoResult').innerHTML=`<div class="pill ok">ดึงข้อมูลจากครูผู้สอนแล้ว ${generated.length} รายการ${warnings.length?` · ข้ามข้อมูลไม่ครบ ${warnings.length} แถว`:''}</div>`;
-   toast('ดึงข้อมูลจากหน้าแก้ไขครูผู้สอนแล้ว');
+   toast('ดึงข้อมูลจากหน้ากำหนดครูผู้สอนแล้ว');
  };
 
  function drawReq(){tbody.innerHTML=y.requirements.length?y.requirements.map((r,i)=>`<tr><td>${esc(y.classes.find(c=>c.id===r.classId)?.name||'ไม่พบห้อง')}</td><td>${esc(r.subject)}</td><td>${esc(y.teachers.find(t=>t.id===r.teacherId)?.name||'ไม่พบครู')}</td><td>${Number(r.hours||0)}</td><td class="actions"><button class="small secondary" data-req-edit="${r.id}">แก้ไข</button><button class="small danger" data-req-del="${r.id}">ลบ</button></td></tr>`).join(''):`<tr><td colspan="5" class="empty">ยังไม่มีเงื่อนไข กด “เพิ่มเงื่อนไขวิชา” เพื่อเริ่มต้น</td></tr>`;
@@ -593,10 +632,23 @@ function autoSchedulePage(v){
     let tb=assigned.filter(x=>x.teacherId===t.teacherId&&x.day===b.day).length+base.filter(x=>x.teacherId===t.teacherId&&x.day===b.day).length;
     return ta-tb || a.period-b.period || y.days.indexOf(a.day)-y.days.indexOf(b.day);
   })}
+  // Identical weekly lesson tasks are interchangeable. Enforce a stable slot order
+  // for each class/subject/teacher group to avoid exploring duplicate permutations.
+  function taskKey(t){return `${t.classId}|${t.subject}|${t.teacherId}`}
+  function slotRank(sl){return y.days.indexOf(sl.day)*100+Number(sl.period)}
   function solve(rem){
     if(!rem.length)return true;if(++nodes>limit)return false;
     let bestIndex=-1,bestOpts=null;
-    for(let i=0;i<rem.length;i++){let opts=candidateSlots(rem[i]);if(!bestOpts||opts.length<bestOpts.length){bestIndex=i;bestOpts=opts;if(opts.length===0)return false;if(opts.length===1)break}}
+    for(let i=0;i<rem.length;i++){
+      const tk=taskKey(rem[i]);
+      // Only consider the earliest remaining ordinal of each identical task group.
+      if(rem.some((x,j)=>j!==i&&taskKey(x)===tk&&Number(x.ordinal)<Number(rem[i].ordinal)))continue;
+      let opts=candidateSlots(rem[i]);
+      const previous=assigned.filter(x=>taskKey(x)===tk);
+      if(previous.length){const minRank=Math.max(...previous.map(slotRank));opts=opts.filter(sl=>slotRank(sl)>minRank)}
+      if(!bestOpts||opts.length<bestOpts.length){bestIndex=i;bestOpts=opts;if(opts.length===0)return false;if(opts.length===1)break}
+    }
+    if(bestIndex<0)return false;
     let task=rem[bestIndex],next=rem.slice(0,bestIndex).concat(rem.slice(bestIndex+1));
     for(let sl of bestOpts){
       let kt=`${sl.day}|${sl.period}|${task.teacherId}`,kc=`${sl.day}|${sl.period}|${task.classId}`,ks=task.classId+'|'+task.subject+'|'+sl.day;
@@ -607,7 +659,7 @@ function autoSchedulePage(v){
     }return false;
   }
   let success=solve(tasks);
-  if(!success){showIssues([nodes>limit?'ระบบใช้จำนวนขั้นตอนค้นหาถึงขีดจำกัดแล้ว ยังหาตารางที่ลงตัวไม่ได้':'ไม่พบตารางที่จัดได้ภายใต้เงื่อนไขปัจจุบัน','ตรวจจำนวนคาบต่อวิชา วัน/คาบเรียนที่เปิด และการกำหนดครูให้แต่ละวิชา หากต้องการคงตารางเดิม ให้ตรวจโหมดจัดเฉพาะช่องว่าง']);document.getElementById('autoSummary').innerHTML='<div class="pill bad">ยังไม่ได้บันทึกตารางใหม่</div>';return}
+  if(!success){showIssues([nodes>limit?'ระบบใช้จำนวนขั้นตอนค้นหาถึงขีดจำกัดแล้ว ยังหาตารางที่ลงตัวไม่ได้':'ไม่พบตารางที่จัดได้ภายใต้เงื่อนไขปัจจุบัน','คาบที่มีอยู่จะถูกล็อกไว้ในโหมดจัดเฉพาะช่องว่าง หากยังจัดไม่สำเร็จ ให้ตรวจจำนวนชั่วโมงที่เหลือ วัน/คาบที่เปิด และครูหรือห้องที่อาจชนกัน']);document.getElementById('autoSummary').innerHTML='<div class="pill bad">ยังไม่ได้บันทึกตารางใหม่</div>';return}
   let finalLessons=base.concat(assigned.map(a=>({id:a.id,day:a.day,period:a.period,classId:a.classId,subject:a.subject,teacherId:a.teacherId,teacherIds:[a.teacherId],note:''})));
   let finalConf=conflicts({lessons:finalLessons});if(finalConf.length){showIssues(['ผลลัพธ์ยังมีข้อขัดแย้ง ระบบจึงไม่บันทึก']);return}
   let summary=`<div class="notice" style="background:#e7f7ef;border-color:#a6e3c5;color:#05603a"><b>จัดตารางสำเร็จ</b><br>ระบบจัดได้ ${assigned.length} คาบใหม่ รวมเป็น ${finalLessons.length} คาบ โดยไม่พบครูหรือห้องเรียนชน</div><div class="formactions"><button id="commitSchedule">ยืนยันบันทึกตารางนี้</button><button class="secondary" id="exportSchedule">ส่งออกตาราง CSV</button><button class="secondary" id="discardSchedule">ยกเลิกผลลัพธ์</button></div>`;
